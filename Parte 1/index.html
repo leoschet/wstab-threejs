@@ -12,16 +12,17 @@
 	<script src="js/three.min.js"></script>
 	<script>
 		var scene = new THREE.Scene();
-		var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 100);
+		var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
 
 		var renderer = new THREE.WebGLRenderer({antialias : true});
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(renderer.domElement);
 
 		// geometry changes
-		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-		var cube = new THREE.Mesh( geometry, material );
+		var cubeTexture = THREE.ImageUtils.loadTexture('./box.png');
+		var cubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+		var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x1ec876, map : cubeTexture } );
+		var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 		scene.add( cube );
 
 		// light changes
@@ -35,7 +36,8 @@
 		var render = function() {
 
 			requestAnimationFrame( render );
-			cube.rotation.x += 0.01;
+			//cube.rotation.x += 0.01;
+			cube.rotation.y += 0.01;
 			renderer.render(scene, camera);
 		};
 
