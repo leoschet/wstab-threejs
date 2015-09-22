@@ -5,11 +5,13 @@ var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(45, winWidth/winHeight, 0.1, 100);
 controls = new THREE.OrbitControls( camera );
 controls.userPan = false;
-	controls.addEventListener( 'change', render );
+controls.addEventListener( 'change', render );
 
 var renderer = new THREE.WebGLRenderer({antialias : true});
 renderer.setSize(winWidth, winHeight);
 document.body.appendChild(renderer.domElement);
+
+THREEx.WindowResize(renderer, camera);
 
 // geometry changes
 
