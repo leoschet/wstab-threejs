@@ -1,62 +1,87 @@
-var winWidth = window.innerWidth;
-var winHeight = window.innerHeight;
+// var winWidth = window.innerWidth;
+// var winHeight = window.innerHeight;
 
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(45, winWidth/winHeight, 0.1, 100);
-controls = new THREE.OrbitControls( camera );
-controls.userPan = false;
+// var scene = new THREE.Scene();
+// var camera = new THREE.PerspectiveCamera(45, winWidth/winHeight, 0.1, 100);
+// controls = new THREE.OrbitControls( camera );
+// controls.userPan = false;
 
 
-var renderer = new THREE.WebGLRenderer({antialias : true});
-renderer.setSize(winWidth, winHeight);
-document.body.appendChild(renderer.domElement);
+// var renderer = new THREE.WebGLRenderer({antialias : true});
+// renderer.setSize(winWidth, winHeight);
+// document.body.appendChild(renderer.domElement);
 
-THREEx.WindowResize(renderer, camera);
+// THREEx.WindowResize(renderer, camera);
 
-// geometry changes
+// // geometry changes
 
-var triangleGeometry = new THREE.Geometry();
-triangleGeometry.vertices.push( new THREE.Vector3( 1, 1, 0 ));
-triangleGeometry.vertices.push( new THREE.Vector3( 3, 1, 0 ));
-triangleGeometry.vertices.push( new THREE.Vector3( 3, 3, 0 ));
+// var triangleGeometry = new THREE.Geometry();
+// triangleGeometry.vertices.push( new THREE.Vector3( 1, 1, 0 ));
+// triangleGeometry.vertices.push( new THREE.Vector3( 3, 1, 0 ));
+// triangleGeometry.vertices.push( new THREE.Vector3( 3, 3, 0 ));
 
-triangleGeometry.faces.push(new THREE.Face3( 0, 1, 2));
+// triangleGeometry.faces.push(new THREE.Face3( 0, 1, 2));
 
-var squareGeometry = new THREE.Geometry();
-squareGeometry.vertices.push( new THREE.Vector3( 0, 0, 0 ) );
-squareGeometry.vertices.push( new THREE.Vector3( 1, 0, 0 ) );
-squareGeometry.vertices.push( new THREE.Vector3( 1, 1, 0 ) );
-squareGeometry.vertices.push( new THREE.Vector3( 0, 1, 0 ) );
+// var squareGeometry = new THREE.Geometry();
+// squareGeometry.vertices.push( new THREE.Vector3( 0, 0, 0 ) );
+// squareGeometry.vertices.push( new THREE.Vector3( 1, 0, 0 ) );
+// squareGeometry.vertices.push( new THREE.Vector3( 1, 1, 0 ) );
+// squareGeometry.vertices.push( new THREE.Vector3( 0, 1, 0 ) );
 
-squareGeometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
-squareGeometry.faces.push( new THREE.Face3( 2, 3, 0 ) );
+// squareGeometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+// squareGeometry.faces.push( new THREE.Face3( 2, 3, 0 ) );
 
-var square = new THREE.Mesh(squareGeometry, new THREE.MeshBasicMaterial(0x1ec876));
-scene.add( square );
+// var square = new THREE.Mesh(squareGeometry, new THREE.MeshBasicMaterial(0x1ec876));
+// scene.add( square );
 
-var cubeTexture = THREE.ImageUtils.loadTexture('./box.png');
-var cubeGeometry = new THREE.BoxGeometry( 5, 5, 5 );
-var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x1ec876, map : cubeTexture } );
-var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
-scene.add( cube );
+// var cubeTexture = THREE.ImageUtils.loadTexture('./box.png');
+// var cubeGeometry = new THREE.BoxGeometry( 5, 5, 5 );
+// var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x1ec876, map : cubeTexture } );
+// var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+// scene.add( cube );
 
-// light changes
-//var pointLight = new THREE.PointLight(0xFFFFF);
-var ambientLight = new THREE.AmbientLight( 0xFFFFF );
-//pointLight.position.z = 10;
-//scene.add(pointLight);
-scene.add(ambientLight);
+// // light changes
+// //var pointLight = new THREE.PointLight(0xFFFFF);
+// var ambientLight = new THREE.AmbientLight( 0xFFFFF );
+// //pointLight.position.z = 10;
+// //scene.add(pointLight);
+// scene.add(ambientLight);
 
-// camera changes
-camera.position.z = 10;
+// // camera changes
+// camera.position.z = 10;
 
-var render = function()
-{
-	requestAnimationFrame( render );
-	//cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
-	renderer.render(scene, camera);
-	controls.update();
-};
+// var render = function()
+// {
+// 	requestAnimationFrame( render );
+// 	//cube.rotation.x += 0.01;
+// 	cube.rotation.y += 0.01;
+// 	renderer.render(scene, camera);
+// 	controls.update();
+// };
 
-render();
+// render();
+
+window.addEventListener("load", Tetris.init);
+
+window.addEventListener('keydown', function (event) {
+  var key = event.which ? event.which : event.keyCode;
+ 
+  switch(key) {
+    case 38: // up (arrow)
+      Tetris.Block.move(0, 1, 0);
+      break;
+    case 40: // down (arrow)
+      Tetris.Block.move(0, -1, 0);
+      break;
+    case 37: // left(arrow)
+      Tetris.Block.move(-1, 0, 0);
+      break;
+    case 39: // right (arrow)
+      Tetris.Block.move(1, 0, 0);
+      break;    
+    case 32: // space
+      Tetris.Block.move(0, 0, -1);
+      break;
+  }
+}, false);
+
